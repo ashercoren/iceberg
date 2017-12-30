@@ -58,12 +58,16 @@
 
     <div class="col-md-6 panel panel-default">
       <div class="graphic-box">
-        <svg class="point" *ngIf="srcPoint.length===2">
+        <svg class="point" *ngIf="srcPoint.length===2"
+             [attr.width]="coordinateToDisplay(srcPoint[0])+5"
+             [attr.height]="coordinateToDisplay(srcPoint[1])+5">
           <circle [attr.cx]=coordinateToDisplay(srcPoint[0])
                   [attr.cy]=coordinateToDisplay(srcPoint[1])
                   r=2>A</circle>
         </svg>
-        <svg class="point" *ngIf="dstPoint.length===2">
+        <svg class="point" *ngIf="dstPoint.length===2"
+             [attr.width]="coordinateToDisplay(dstPoint[0])+5"
+             [attr.height]="coordinateToDisplay(dstPoint[1])+5">
           <circle [attr.cx]=coordinateToDisplay(dstPoint[0])
                   [attr.cy]=coordinateToDisplay(dstPoint[1])
                   r=2>B</circle>

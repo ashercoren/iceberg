@@ -100,19 +100,17 @@ export class AppComponent implements OnInit {
       alert("not all fields are filled");
       return;
     }
-    this.route = JSON.parse('[{"x":0,"y":1},{"x":0,"y":2},{"x":1,"y":3},{"x":2,"y":4},{"x":3,"y":5},{"x":4,"y":5},{"x":5,"y":6},{"x":6,"y":7},{"x":7,"y":8},{"x":8,"y":9},{"x":9,"y":10},{"x":10,"y":10}]')
-    return;
-    // this.appService
-    //     .calculateRoute(this.srcPoint,this.dstPoint,this.icebergList)
-    //     .subscribe(r => {
-    //       if (r.status!=200){
-    //         alert(r.statusText);
-    //         return;
-    //       }
-    //       this.route = r.json();
-    //       if (this.route === null){
-    //         alert("No route fround");
-    //       }
-    //    })
+    this.appService
+        .calculateRoute(this.srcPoint,this.dstPoint,this.icebergList)
+        .subscribe(r => {
+          if (r.status!=200){
+            alert(r.statusText);
+            return;
+          }
+          this.route = r.json();
+          if (this.route === null){
+            alert("No route fround");
+          }
+       })
   }
 }
