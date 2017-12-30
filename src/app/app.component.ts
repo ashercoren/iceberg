@@ -79,14 +79,27 @@ export class AppComponent implements OnInit {
             this.coordinateToDisplay(point.y)];
   }
 
-  routeToDisplay(route){
+  formatRoute(route){
     return route.map(xy=> 
       this.routePointToDisplay(xy))
-      .join(" ");
+  }
+
+  routeToDisplay(route){
+    return this.formatRoute(route).join(" ");
   }
 
   routeToString(route){
     return JSON.stringify(route);
+  }
+
+  routeHeight(route){
+    return this.formatRoute(route).reduce((a,b)=> 
+      Math.max(a, b[1]),100);
+  }
+
+  routeWidth(route){
+    return this.formatRoute(route).reduce((a,b)=> 
+      Math.max(a, b[0]),100);
   }
 
   validParams(){
