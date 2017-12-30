@@ -14,10 +14,12 @@ end
 
 post '/calcRoute' do
   data = JSON.parse request.body.read
+  #verify with have all required params
   src = data['src']
   dst = data['dst']
   polygons = data['polygons'] || []
   halt 422, 'muse send src and dst' unless src && dst
-  PathFinder.find_path(src,dst,[polygons]).to_s
-  
-end
+
+  #find path
+  PathFinder.find_path(src,dst,[polygons]).to_json
+  end

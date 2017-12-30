@@ -1,49 +1,82 @@
 <div class="container">
-    <div>
-      <label>Point A Location:</label>
+  <div class="row">
+    <div class="col-md-6 panel panel-default">
       <div>
-        <label>X</label>
-        <input type="number" [(ngModel)]="srcPoint[0]">
-        <label>Y</label>
-        <input type="number" [(ngModel)]="srcPoint[1]">
+        <label>Point A Location:</label>
+        <div>
+          <label>X</label>
+          <input type="number" [(ngModel)]="srcPoint[0]">
+          <label>Y</label>
+          <input type="number" [(ngModel)]="srcPoint[1]">
+        </div>
+      </div>
+
+      <div>
+        <label>Point B Location:</label>
+        <div>
+          <label>X</label>
+          <input type="number" [(ngModel)]="dstPoint[0]">
+          <label>Y</label>
+          <input type="number" [(ngModel)]="dstPoint[1]">
+        </div>
+      </div>
+
+
+      <ol>
+        Iceberg List:
+          <li *ngFor="let iceberg of icebergList">
+            <span *ngFor="let coordinate of iceberg; let idx = index">
+              [{{coordinate[0]}},{{coordinate[1]}}];
+            </span>
+            <button (click)=removeIceberg(idx)>Remove Iceberg</button>
+          </li>
+          <li>
+            New Iceburg:
+            <ul>
+              <li *ngFor="let point of newIceberg; let idx = index">
+                <label>X</label>
+                <input type="number" [(ngModel)]="newIceberg[idx][0]">
+                <label>Y</label>
+                <input type="number" [(ngModel)]="newIceberg[idx][1]">
+                <button type="button" (click)=removePoint(idx)>Remove point</button>
+              </li>
+            </ul>
+            <button type="button" (click)="addPoint()">Add Point</button>
+            <button type="button" (click)="addIceberg()">Add Iceberg</button>
+          </li>
+      </ol>
+
+      <button type="button" (click)=calculateRoute()>Find shortest path</button>
+      <button type="button" (click)=runDemoData()>Demo</button>
+      <button type="button" (click)=clearData()>Clear</button>
+
+      <div *ngIf="route">
+        <label>Soltuion</label>
+        <span>{{routeToString(route)}}</span>
       </div>
     </div>
 
-    <div>
-      <label>Point B Location:</label>
-      <div>
-        <label>X</label>
-        <input type="number" [(ngModel)]="dstPoint[0]">
-        <label>Y</label>
-        <input type="number" [(ngModel)]="dstPoint[1]">
+    <div class="col-md-6 panel panel-default">
+      <div class="graphic-box">
+        <svg class="point" *ngIf="srcPoint.length===2">
+          <circle [attr.cx]=coordinateToDisplay(srcPoint[0])
+                  [attr.cy]=coordinateToDisplay(srcPoint[1])
+                  r=2>A</circle>
+        </svg>
+        <svg class="point" *ngIf="dstPoint.length===2">
+          <circle [attr.cx]=coordinateToDisplay(dstPoint[0])
+                  [attr.cy]=coordinateToDisplay(dstPoint[1])
+                  r=2>B</circle>
+        </svg>
+        <div class=polygons *ngFor="let iceberg of icebergList">
+          <svg class="polygon">
+            <polygon [attr.points]=icebergToDisplay(iceberg)/>
+          </svg>
+        </div>
+        <svg class="route" *ngIf="route">
+          <polyline [attr.points]=routeToDisplay(route)/>
+        </svg>
       </div>
     </div>
-
-
-    <ol>
-      Iceberg List:
-        <li *ngFor="let iceberg of icebergList">
-          <span *ngFor="let coordinate of iceberg; let idx = index">
-            [{{coordinate[0]}},{{coordinate[1]}}];
-          </span>
-          <button (click)=removeIceberg(idx)>Remove Iceberg</button>
-        </li>
-        <li>
-          New Iceburg:
-          <ul>
-            <li *ngFor="let point of newIceberg; let idx = index">
-              <label>X</label>
-              <input type="number" [(ngModel)]="newIceberg[idx][0]">
-              <label>Y</label>
-              <input type="number" [(ngModel)]="newIceberg[idx][1]">
-              <button (click)=removePoint(idx)>Remove point</button>
-            </li>
-          </ul>
-          <button (click)="addPoint()">Add Point</button>
-          <button (click)="addIceberg()">Add Iceberg</button>
-        </li>
-    </ol>
-
-    <button (click)=calculateRoute()>Calculate Route</button>
-
+  </div>
 </div>

@@ -1,0 +1,23 @@
+.panel {
+  min-height:400px;
+}
+
+.point {
+  position: absolute;
+  fill:blue;
+}
+
+.polygons {
+  position: absolute;
+}
+
+.polygon {
+  position: relative;
+  fill:green;
+}
+
+.route {
+  position: relative;
+  stroke: black;
+  fill:none;
+}
