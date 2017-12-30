@@ -6,7 +6,7 @@ require 'json'
 require_relative 'path_finder'
 
 set :public_folder, File.dirname(__FILE__) + '/dist'
-set :port, ENV['port'] || 4567
+set :port, ENV['PORT'] || 4567
 
 get '/' do
   File.read(File.join('./dist', 'index.html'))
