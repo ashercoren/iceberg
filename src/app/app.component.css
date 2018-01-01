@@ -2,6 +2,10 @@
   min-height:400px;
 }
 
+.graphic-box {
+  zoom: 3;
+}
+
 .point {
   position: absolute;
   fill:blue;

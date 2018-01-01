@@ -12,24 +12,27 @@ export class AppComponent implements OnInit {
   icebergList; //List of icebergs
   newIceberg; //A temp iceberg to add to the list
   route; //The route from src to dst
-  demoData;
 
   constructor(private appService: AppService) { }
 
   ngOnInit(){
     this.clearData();
-    this.demoData = {
+  }
+
+  demoData(){
+    return {
       srcPoint: [2,2],
       dstPoint: [12,12],
-      icebergList: [[[1,1],[3,1],[3,3],[1,3]],
-                    [[4,4],[8,4],[6,6]]]
+      icebergList: [[[3,3],[4,1],[4,4],[1,4]],
+                    [[6,6],[8,4],[9,9]]]
     };
   }
 
   runDemoData(){
-    this.srcPoint = this.demoData.srcPoint;
-    this.dstPoint = this.demoData.dstPoint;
-    this.icebergList = this.demoData.icebergList;
+    let data = this.demoData();
+    this.srcPoint = data.srcPoint;
+    this.dstPoint = data.dstPoint;
+    this.icebergList = data.icebergList;
     this.calculateRoute();
   }
 
@@ -63,7 +66,7 @@ export class AppComponent implements OnInit {
   }
 
   coordinateToDisplay(coordinate){
-    return coordinate * 10;
+    return coordinate * 1;
   }
 
   pointToDisplay(point){
@@ -123,6 +126,9 @@ export class AppComponent implements OnInit {
           this.route = r.json();
           if (this.route === null){
             alert("No route fround");
+          }
+          else {
+            this.route.unshift({x:this.srcPoint[0],y:this.srcPoint[1]});
           }
        })
   }
